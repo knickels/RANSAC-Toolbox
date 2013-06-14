@@ -43,14 +43,22 @@ rand('twister', seed);
 randn('state', seed);
 
 % generate an RST transformation
+
 % scaling is in [1-As, 1+As]
 As = 0.5;
-s   = 1 + (As * (rand()-0.5));
-% angle is in [-Aphi Aphi]
-Aphi = 30;
-phi = Aphi*pi*(rand()-0.5);
-T   = rand(2, 1);
+s   = 1 + (As * 2*(rand()-0.5));
 
+% angle is in [-Aphi Aphi] (degrees)
+Aphi = 30;
+% phi is in [-Aphi Aphi] (radians)
+phi = Aphi*2*(rand()-0.5)*pi/180;
+
+% T is in range [-ATx +ATx],[-ATy +ATy]
+ATx = 12;
+ATy = 5;
+T   = [ATx*2*(rand()-0.5); ...
+       ATy*2*(rand()-0.5)];
+       
 C = s*cos(phi);
 S = s*sin(phi);
 H = [C -S T(1); S C T(2); 0 0 1];
